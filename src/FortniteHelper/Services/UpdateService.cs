@@ -99,6 +99,7 @@ public sealed class UpdateService : ObservableObject
             var info = await _mgr.CheckForUpdatesAsync();
             if (info is null)
             {
+                Log.Info($"Updates: {CurrentVersion} is the newest version");
                 State = UpdateState.UpToDate;
                 return;
             }
@@ -116,6 +117,7 @@ public sealed class UpdateService : ObservableObject
         {
             Log.Warn("Update check failed: " + ex.Message);
             State = UpdateState.Failed;
+            _lastCheck = DateTime.UtcNow - CheckEvery + TimeSpan.FromMinutes(30); // offline? try again in half an hour
         }
         finally
         {
