@@ -1,0 +1,9 @@
+﻿bin/
+obj/
+dist/
+*.user
+.vs/
+# not part of LootLog
+code.py
+# private outreach notes
+marketing/creator-kit.html

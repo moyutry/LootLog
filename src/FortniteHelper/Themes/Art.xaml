@@ -1,0 +1,231 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Golden loot chest (100 x 90) -->
+    <DrawingImage x:Key="ArtChest">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- invisible bounds -->
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 L100,0 L100,90 L0,90 Z" />
+                <!-- shadow -->
+                <GeometryDrawing Geometry="M50,88 m-38,0 a38,4 0 1 0 76,0 a38,4 0 1 0 -76,0">
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#70000000" Offset="0" />
+                            <GradientStop Color="#00000000" Offset="1" />
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <!-- lid -->
+                <GeometryDrawing Geometry="M12,42 L12,33 C12,15 29,10 50,10 C71,10 88,15 88,33 L88,42 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#E08A45" Offset="0" />
+                            <GradientStop Color="#B5622A" Offset="0.55" />
+                            <GradientStop Color="#8A4519" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#3A1806" Thickness="3" LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#33FFFFFF" Geometry="M20,25 C28,17 72,17 80,25 L80,29 C72,22 28,22 20,29 Z" />
+                <!-- body -->
+                <GeometryDrawing Geometry="M12,42 L88,42 L88,78 C88,81 86,83 83,83 L17,83 C14,83 12,81 12,78 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#B9692D" Offset="0" />
+                            <GradientStop Color="#7A3A14" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#3A1806" Thickness="3" LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M15,57 L85,57 M15,70 L85,70">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#5C2A0C" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <!-- gold bands -->
+                <GeometryDrawing Geometry="M22,16 L31,13.5 L31,83 L22,83 Z M69,13.5 L78,16 L78,83 L69,83 Z M12,38 L88,38 L88,45 L12,45 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#FFF3A6" Offset="0" />
+                            <GradientStop Color="#FFD23F" Offset="0.5" />
+                            <GradientStop Color="#E8A41C" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#8A5A08" Thickness="2" LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <!-- lock -->
+                <GeometryDrawing Geometry="M42,33 L58,33 C59.5,33 60.5,34 60.5,35.5 L60.5,53 C60.5,54.5 59.5,55.5 58,55.5 L42,55.5 C40.5,55.5 39.5,54.5 39.5,53 L39.5,35.5 C39.5,34 40.5,33 42,33 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFF6B8" Offset="0" />
+                            <GradientStop Color="#FFCF33" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#8A5A08" Thickness="2.2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#5A3000" Geometry="M50,39.5 m-3,0 a3,3 0 1 0 6,0 a3,3 0 1 0 -6,0 M48.6,41 L51.4,41 L52.3,49 L47.7,49 Z" />
+                <!-- sparkles -->
+                <GeometryDrawing Brush="White" Geometry="M90,4 L91.6,10.4 L98,12 L91.6,13.6 L90,20 L88.4,13.6 L82,12 L88.4,10.4 Z" />
+                <GeometryDrawing Brush="#9AF4FF" Geometry="M7,16 L8,19.5 L11.5,20.5 L8,21.5 L7,25 L6,21.5 L2.5,20.5 L6,19.5 Z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Green ammo box (100 x 80) -->
+    <DrawingImage x:Key="ArtAmmo">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 L100,0 L100,80 L0,80 Z" />
+                <!-- bullets -->
+                <GeometryDrawing Geometry="M30,30 L30,14 C30,8 33,4 35,2 C37,4 40,8 40,14 L40,30 Z M45,30 L45,12 C45,6 48,2 50,0 C52,2 55,6 55,12 L55,30 Z M60,30 L60,14 C60,8 63,4 65,2 C67,4 70,8 70,14 L70,30 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#FFE58A" Offset="0" />
+                            <GradientStop Color="#E0A020" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#6A4400" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <!-- crate -->
+                <GeometryDrawing Geometry="M8,26 L92,26 L92,74 C92,76 90,78 88,78 L12,78 C10,78 8,76 8,74 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#7BC043" Offset="0" />
+                            <GradientStop Color="#3E7A22" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1C3A0C" Thickness="3" LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#2E5C18" Geometry="M8,26 L92,26 L92,36 L8,36 Z" />
+                <GeometryDrawing Geometry="M20,46 L80,46 L80,66 L20,66 Z">
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="#22000000" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#9FE070" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#9FE070" Geometry="M36,52 L42,52 L42,60 L36,60 Z M47,52 L53,52 L53,60 L47,60 Z M58,52 L64,52 L64,60 L58,60 Z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- V-Bucks style coin (fallback when the official icon can't be downloaded) -->
+    <DrawingImage x:Key="ArtCoin">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M12,1 A11,11 0 1 1 11.99,1 Z">
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush GradientOrigin="0.35,0.3">
+                            <GradientStop Color="#A8E6FF" Offset="0" />
+                            <GradientStop Color="#2E9BFF" Offset="0.7" />
+                            <GradientStop Color="#1450B0" Offset="1" />
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="White" Geometry="M6.5,6.5 L9.5,6.5 L12,14 L14.5,6.5 L17.5,6.5 L13.5,17.5 L10.5,17.5 Z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Victory crown (64 x 52) -->
+    <DrawingImage x:Key="ArtCrown">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M4,14 L18,28 L32,4 L46,28 L60,14 L54,44 L10,44 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFF3A6" Offset="0" />
+                            <GradientStop Color="#FFD23F" Offset="0.5" />
+                            <GradientStop Color="#F09A12" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#7A4A00" Thickness="2.5" LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#F09A12" Geometry="M10,46 L54,46 L54,51 L10,51 Z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#7A4A00" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#2CE6FF" Geometry="M32,26 m-4,0 a4,4 0 1 0 8,0 a4,4 0 1 0 -8,0" />
+                <GeometryDrawing Brush="#E040FB" Geometry="M19,34 m-3,0 a3,3 0 1 0 6,0 a3,3 0 1 0 -6,0 M45,34 m-3,0 a3,3 0 1 0 6,0 a3,3 0 1 0 -6,0" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Storm eye (64 x 64) -->
+    <DrawingImage x:Key="ArtStorm">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M32,2 A30,30 0 1 1 31.99,2 Z">
+                    <GeometryDrawing.Brush>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#00B07CFF" Offset="0.35" />
+                            <GradientStop Color="#AA8B5CFF" Offset="0.75" />
+                            <GradientStop Color="#00E040FB" Offset="1" />
+                        </RadialGradientBrush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M32,10 C46,10 54,20 54,32 C54,44 44,52 34,52 C24,52 18,45 18,37 C18,29 24,24 31,24 C37,24 41,28 41,33 C41,38 37,41 33,41">
+                    <GeometryDrawing.Pen>
+                        <Pen Thickness="4.5" StartLineCap="Round" EndLineCap="Round">
+                            <Pen.Brush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#F3D8FF" Offset="0" />
+                                    <GradientStop Color="#E040FB" Offset="1" />
+                                </LinearGradientBrush>
+                            </Pen.Brush>
+                        </Pen>
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Battle bus (96 x 64) -->
+    <DrawingImage x:Key="ArtBus">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="#E8F4FF" Geometry="M48,2 C64,2 70,10 70,16 L26,16 C26,10 32,2 48,2 Z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1A3A6A" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M30,16 L36,24 M66,16 L60,24">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1A3A6A" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="M10,24 L86,24 C90,24 92,27 92,31 L92,52 L4,52 L4,31 C4,27 6,24 10,24 Z">
+                    <GeometryDrawing.Brush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#4FB8FF" Offset="0" />
+                            <GradientStop Color="#1F6FD8" Offset="1" />
+                        </LinearGradientBrush>
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#0C2A5A" Thickness="2.5" LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="#BFF2FF" Geometry="M12,30 L24,30 L24,40 L12,40 Z M30,30 L42,30 L42,40 L30,40 Z M48,30 L60,30 L60,40 L48,40 Z M66,30 L78,30 L78,40 L66,40 Z" />
+                <GeometryDrawing Brush="#FFD23F" Geometry="M4,44 L92,44 L92,48 L4,48 Z" />
+                <GeometryDrawing Brush="#0C1A33" Geometry="M22,52 m-7,0 a7,7 0 1 0 14,0 a7,7 0 1 0 -14,0 M74,52 m-7,0 a7,7 0 1 0 14,0 a7,7 0 1 0 -14,0" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

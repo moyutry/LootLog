@@ -1,0 +1,86 @@
+<Window x:Class="FortniteHelper.Views.TrayMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="clr-namespace:FortniteHelper.Views.Controls"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False" Topmost="True"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" UseLayoutRounding="True" Title="LootLog">
+    <Border x:Name="Root" Margin="12" CornerRadius="16" BorderThickness="1" BorderBrush="#40FFFFFF" Padding="10" Width="270" RenderTransformOrigin="0.5,1">
+        <Border.RenderTransform>
+            <ScaleTransform />
+        </Border.RenderTransform>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0.5,1">
+                <GradientStop Color="#FF1D2257" Offset="0" />
+                <GradientStop Color="#FF0E1030" Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="24" ShadowDepth="4" Opacity="0.6" />
+        </Border.Effect>
+        <StackPanel>
+            <Grid Margin="6,4,6,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="pack://application:,,,/Assets/AppIcon.png" Width="34" Height="34" />
+                <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="LOOTLOG" Style="{StaticResource H2}" FontSize="16" />
+                    <TextBlock x:Name="Status" Style="{StaticResource Muted}" FontSize="11.5" />
+                </StackPanel>
+            </Grid>
+
+            <Border Style="{StaticResource InsetBorder}" Margin="0,0,0,8" Padding="10,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{StaticResource ArtChest}" Width="34" Height="30" />
+                    <StackPanel Grid.Column="1" Margin="10,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="ChestCount" Style="{StaticResource H2}" FontSize="22" Foreground="{StaticResource Yellow}" />
+                        <TextBlock x:Name="ChestSub" Style="{StaticResource Caps}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" ToolTip="Chance you've found the Pirate token this season">
+                        <TextBlock x:Name="PirateText" Style="{StaticResource H2}" FontSize="16" Foreground="{StaticResource Yellow}" HorizontalAlignment="Right" />
+                        <TextBlock Text="PIRATE" Style="{StaticResource Caps}" HorizontalAlignment="Right" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <CheckBox x:Name="CrosshairToggle" Style="{StaticResource Switch}" Margin="8,4" Click="Crosshair_Click">
+                <StackPanel Orientation="Horizontal">
+                    <c:Icon Data="{StaticResource IconCrosshair}" Width="16" Height="16" Foreground="{StaticResource Accent}" />
+                    <TextBlock Text="Crosshair" Margin="10,0,0,0" Foreground="{StaticResource Text}" />
+                </StackPanel>
+            </CheckBox>
+            <CheckBox x:Name="HudToggle" Style="{StaticResource Switch}" Margin="8,4" Click="Hud_Click">
+                <StackPanel Orientation="Horizontal">
+                    <c:Icon Data="{StaticResource IconLayers}" Width="16" Height="16" Foreground="{StaticResource Accent}" />
+                    <TextBlock Text="Chest HUD overlay" Margin="10,0,0,0" Foreground="{StaticResource Text}" />
+                </StackPanel>
+            </CheckBox>
+            <CheckBox x:Name="DetectToggle" Style="{StaticResource Switch}" Margin="8,4" Click="Detect_Click">
+                <StackPanel Orientation="Horizontal">
+                    <c:Icon Data="{StaticResource IconEye}" Width="16" Height="16" Foreground="{StaticResource Accent}" />
+                    <TextBlock Text="Live chest counter" Margin="10,0,0,0" Foreground="{StaticResource Text}" />
+                </StackPanel>
+            </CheckBox>
+
+            <Border Height="1" Background="#20FFFFFF" Margin="4,8" />
+            <Button Style="{StaticResource GhostBtn}" HorizontalContentAlignment="Left" Click="Open_Click">
+                <StackPanel Orientation="Horizontal">
+                    <c:Icon Data="{StaticResource IconHome}" Width="16" Height="16" />
+                    <TextBlock Text="Open LootLog" Margin="10,0,0,0" Foreground="{StaticResource Text}" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource GhostBtn}" HorizontalContentAlignment="Left" Click="Quit_Click">
+                <StackPanel Orientation="Horizontal">
+                    <c:Icon Data="{StaticResource IconPower}" Width="16" Height="16" Foreground="{StaticResource Red}" />
+                    <TextBlock Text="Quit completely" Margin="10,0,0,0" Foreground="#FF8FA3" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Border>
+</Window>

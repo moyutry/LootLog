@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The assembly name must contain "ReplayReader": Unreal.Core only scans such assemblies for net field export groups. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>FortniteHelper.Replays</RootNamespace>
+    <AssemblyName>FortniteHelper.ReplayReader</AssemblyName>
+    <NoWarn>$(NoWarn);CS8632</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FortniteReplayReader" Version="3.1.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,158 @@
+<UserControl x:Class="FortniteHelper.Views.Pages.CrosshairPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:FortniteHelper.Views.Controls">
+    <Grid Margin="34,6,30,26">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="18" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="18" />
+            <ColumnDefinition Width="340" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ============ Profiles + presets ============ -->
+        <Border Style="{StaticResource CardBorder}" Padding="16">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="PROFILES" Style="{StaticResource CardTitle}" />
+                <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                    <Button Style="{StaticResource IconBtn}" ToolTip="New profile" Click="New_Click"><c:Icon Data="{StaticResource IconPlus}" Width="17" Height="17" /></Button>
+                    <Button Style="{StaticResource IconBtn}" ToolTip="Duplicate" Click="Duplicate_Click"><c:Icon Data="{StaticResource IconCopy}" Width="17" Height="17" /></Button>
+                    <Button Style="{StaticResource IconBtn}" ToolTip="Rename" Click="Rename_Click"><c:Icon Data="{StaticResource IconEdit}" Width="17" Height="17" /></Button>
+                    <Button Style="{StaticResource IconBtn}" ToolTip="Delete" Click="Delete_Click"><c:Icon Data="{StaticResource IconTrash}" Width="17" Height="17" Foreground="#FF8FA3" /></Button>
+                </WrapPanel>
+                <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource Muted}" FontSize="11.5" Margin="0,8,0,0" Text="Click a preset to apply its look to the selected profile." />
+                <WrapPanel x:Name="Presets" DockPanel.Dock="Bottom" />
+                <TextBlock DockPanel.Dock="Bottom" Text="PRESETS" Style="{StaticResource Caps}" Margin="0,12,0,8" />
+                <ListBox x:Name="ProfileList" DisplayMemberPath="Name" SelectionChanged="ProfileList_SelectionChanged" />
+            </DockPanel>
+        </Border>
+
+        <!-- ============ Preview ============ -->
+        <DockPanel Grid.Column="2">
+            <Border DockPanel.Dock="Bottom" Style="{StaticResource CardBorder}" Margin="0,18,0,0">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="SHOW CROSSHAIR" Style="{StaticResource Caps}" Margin="0,0,0,8" />
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Style="{StaticResource Segment}" GroupName="XMode" Content="Off" IsChecked="{Binding Crosshair.Mode, Converter={StaticResource EnumEq}, ConverterParameter=Off}" />
+                                <RadioButton Style="{StaticResource Segment}" GroupName="XMode" Content="Only in Fortnite" IsChecked="{Binding Crosshair.Mode, Converter={StaticResource EnumEq}, ConverterParameter=FortniteOnly}" />
+                                <RadioButton Style="{StaticResource Segment}" GroupName="XMode" Content="Always" IsChecked="{Binding Crosshair.Mode, Converter={StaticResource EnumEq}, ConverterParameter=Always}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                            <TextBlock Text="TOGGLE HOTKEY" Style="{StaticResource Caps}" Margin="0,0,0,8" />
+                            <c:KeyBindingBox BindingValue="{Binding Hotkeys.ToggleCrosshair}" />
+                        </StackPanel>
+                    </Grid>
+                    <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding Crosshair.HideWhileAiming}" Margin="0,12,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Hide while aiming (right mouse button)" />
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="Scopes and ADS have their own reticle" />
+                        </StackPanel>
+                    </CheckBox>
+                    <Border Height="1" Background="#1AFFFFFF" Margin="0,12" />
+                    <TextBlock Text="VALORANT CROSSHAIR CODE" Style="{StaticResource Caps}" Margin="0,0,0,8" />
+                    <TextBox x:Name="CodeBox" FontFamily="Consolas" Margin="0,0,0,8" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Click="Import_Click" ToolTip="Apply the code to this profile">
+                            <StackPanel Orientation="Horizontal"><c:Icon Data="{StaticResource IconImport}" Width="16" Height="16" /><TextBlock Text="Import" Margin="6,0,0,0" /></StackPanel>
+                        </Button>
+                        <Button Grid.Column="1" Margin="8,0,0,0" Click="Export_Click" ToolTip="Copy this crosshair as a code">
+                            <StackPanel Orientation="Horizontal"><c:Icon Data="{StaticResource IconCopy}" Width="16" Height="16" /><TextBlock Text="Copy code" Margin="6,0,0,0" /></StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardBorder}" Padding="0" ClipToBounds="True">
+                <Grid>
+                    <Border CornerRadius="16" ClipToBounds="True">
+                        <c:CrosshairPreview x:Name="Preview" Zoom="3" />
+                    </Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14">
+                        <Border CornerRadius="10" Background="#B30C0E26" Padding="4">
+                            <StackPanel x:Name="SceneButtons" Orientation="Horizontal" />
+                        </Border>
+                    </StackPanel>
+                    <Border CornerRadius="10" Background="#B30C0E26" Padding="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="14">
+                        <StackPanel x:Name="ZoomButtons" Orientation="Horizontal" />
+                    </Border>
+                    <Border CornerRadius="10" Background="#B30C0E26" Padding="10,6" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="14">
+                        <TextBlock x:Name="ProfileName" FontFamily="{StaticResource DisplayFont}" FontSize="16" Foreground="White" />
+                    </Border>
+                </Grid>
+            </Border>
+        </DockPanel>
+
+        <!-- ============ Editor ============ -->
+        <Border Grid.Column="4" Style="{StaticResource CardBorder}" Padding="0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="18,16,14,16">
+                <StackPanel x:Name="Editor">
+                    <TextBlock Text="COLOR" Style="{StaticResource CardTitle}" />
+                    <WrapPanel x:Name="Swatches" Margin="0,0,0,8" />
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Width="34" Height="34" CornerRadius="8" BorderBrush="#55FFFFFF" BorderThickness="1" Background="{Binding Color, Converter={StaticResource HexBrush}}" />
+                        <TextBox Grid.Column="1" Margin="10,0,0,0" FontFamily="Consolas" x:Name="HexBox" KeyDown="HexBox_KeyDown" LostFocus="HexBox_LostFocus" />
+                    </Grid>
+
+                    <Border Height="1" Background="#1AFFFFFF" Margin="0,12" />
+                    <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding Outlines}"><TextBlock Text="OUTLINES" Style="{StaticResource H2}" FontSize="16" /></CheckBox>
+                    <StackPanel Visibility="{Binding Outlines, Converter={StaticResource Vis}}">
+                        <c:SliderRow Label="Opacity" Value="{Binding OutlineOpacity}" Minimum="0" Maximum="1" Step="0.05" Percent="True" />
+                        <c:SliderRow Label="Thickness" Value="{Binding OutlineThickness}" Minimum="1" Maximum="6" Suffix=" px" />
+                    </StackPanel>
+
+                    <Border Height="1" Background="#1AFFFFFF" Margin="0,12" />
+                    <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding CenterDot}"><TextBlock Text="CENTER DOT" Style="{StaticResource H2}" FontSize="16" /></CheckBox>
+                    <StackPanel Visibility="{Binding CenterDot, Converter={StaticResource Vis}}">
+                        <c:SliderRow Label="Opacity" Value="{Binding DotOpacity}" Minimum="0" Maximum="1" Step="0.05" Percent="True" />
+                        <c:SliderRow Label="Size" Value="{Binding DotThickness}" Minimum="1" Maximum="8" Suffix=" px" />
+                    </StackPanel>
+
+                    <Border Height="1" Background="#1AFFFFFF" Margin="0,12" />
+                    <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding InnerLines}"><TextBlock Text="INNER LINES" Style="{StaticResource H2}" FontSize="16" /></CheckBox>
+                    <StackPanel Visibility="{Binding InnerLines, Converter={StaticResource Vis}}">
+                        <c:SliderRow Label="Opacity" Value="{Binding InnerOpacity}" Minimum="0" Maximum="1" Step="0.05" Percent="True" />
+                        <c:SliderRow Label="Length" Value="{Binding InnerLength}" Minimum="0" Maximum="20" Suffix=" px" />
+                        <c:SliderRow Label="Thickness" Value="{Binding InnerThickness}" Minimum="1" Maximum="10" Suffix=" px" />
+                        <c:SliderRow Label="Gap from center" Value="{Binding InnerOffset}" Minimum="0" Maximum="20" Suffix=" px" />
+                    </StackPanel>
+
+                    <Border Height="1" Background="#1AFFFFFF" Margin="0,12" />
+                    <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding OuterLines}"><TextBlock Text="OUTER LINES" Style="{StaticResource H2}" FontSize="16" /></CheckBox>
+                    <StackPanel Visibility="{Binding OuterLines, Converter={StaticResource Vis}}">
+                        <c:SliderRow Label="Opacity" Value="{Binding OuterOpacity}" Minimum="0" Maximum="1" Step="0.05" Percent="True" />
+                        <c:SliderRow Label="Length" Value="{Binding OuterLength}" Minimum="0" Maximum="20" Suffix=" px" />
+                        <c:SliderRow Label="Thickness" Value="{Binding OuterThickness}" Minimum="1" Maximum="10" Suffix=" px" />
+                        <c:SliderRow Label="Gap from center" Value="{Binding OuterOffset}" Minimum="0" Maximum="40" Suffix=" px" />
+                    </StackPanel>
+
+                    <Border Height="1" Background="#1AFFFFFF" Margin="0,12" />
+                    <TextBlock Text="EXTRAS" Style="{StaticResource H2}" FontSize="16" HorizontalAlignment="Left" Margin="0,0,0,4" />
+                    <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding TStyle}" Content="T-style (no top line)" />
+                    <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding Circle}" Content="Circle" />
+                    <StackPanel Visibility="{Binding Circle, Converter={StaticResource Vis}}">
+                        <c:SliderRow Label="Radius" Value="{Binding CircleRadius}" Minimum="3" Maximum="40" Suffix=" px" />
+                        <c:SliderRow Label="Thickness" Value="{Binding CircleThickness}" Minimum="1" Maximum="5" Step="0.5" Suffix=" px" />
+                        <c:SliderRow Label="Opacity" Value="{Binding CircleOpacity}" Minimum="0" Maximum="1" Step="0.05" Percent="True" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

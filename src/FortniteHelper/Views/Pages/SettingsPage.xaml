@@ -1,0 +1,241 @@
+<UserControl x:Class="FortniteHelper.Views.Pages.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:o="clr-namespace:FortniteHelper.Overlays"
+             xmlns:c="clr-namespace:FortniteHelper.Views.Controls">
+    <ScrollViewer Style="{StaticResource PageScroll}">
+        <StackPanel>
+            <!-- ================= THE BASICS ================= -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="18" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource CardBorder}">
+                    <StackPanel>
+                        <TextBlock Text="THE BASICS" Style="{StaticResource CardTitle}" />
+                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,-6,0,14"
+                                   Text="That's all you need. Everything else works by itself." />
+
+                        <Border Style="{StaticResource InsetBorder}" Padding="14,12" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,0,14,0">
+                                    <TextBlock Text="Your chest key" Foreground="{StaticResource Text}" FontWeight="SemiBold" FontSize="14" />
+                                    <TextBlock Style="{StaticResource Muted}" FontSize="12" TextWrapping="Wrap"
+                                               Text="The key you press to open chests in Fortnite. It's E unless you changed it. Click the box and press your key." />
+                                </StackPanel>
+                                <c:KeyBindingBox Grid.Column="1" VerticalAlignment="Center" BindingValue="{Binding Detection.InteractKey}" />
+                            </Grid>
+                        </Border>
+
+                        <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding Hud.Enabled}">
+                            <StackPanel>
+                                <TextBlock Text="Show my chests in the game" />
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="A small box on screen (see the preview). Move it with the button there." />
+                            </StackPanel>
+                        </CheckBox>
+                        <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding Detection.Mode, Converter={StaticResource EnumEq}, ConverterParameter=Auto}" Unchecked="LiveOff">
+                            <StackPanel>
+                                <TextBlock Text="Count during the match too" />
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
+                                           Text="Off = numbers only after each match. The exact count after the match always works." />
+                            </StackPanel>
+                        </CheckBox>
+                        <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding General.ChestSound}">
+                            <StackPanel>
+                                <TextBlock Text="Ding for every chest" />
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="A short sound when a chest is counted" />
+                            </StackPanel>
+                        </CheckBox>
+                        <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding General.StartWithWindows}">
+                            <StackPanel>
+                                <TextBlock Text="Start with Windows" />
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="So you never forget to open it before playing" />
+                            </StackPanel>
+                        </CheckBox>
+
+                        <Border Style="{StaticResource InsetBorder}" Padding="14,12" Margin="0,10,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <c:Icon Data="{StaticResource IconRefresh}" Width="18" Height="18" Foreground="{StaticResource Accent}" VerticalAlignment="Top" Margin="0,1,0,0" />
+                                <StackPanel Grid.Column="1" Margin="10,0,14,0">
+                                    <TextBlock Text="Updates" Foreground="{StaticResource Text}" FontWeight="SemiBold" FontSize="14" />
+                                    <TextBlock x:Name="UpdateText" Style="{StaticResource Muted}" FontSize="12" TextWrapping="Wrap" />
+                                </StackPanel>
+                                <Button x:Name="UpdateBtn" Grid.Column="2" VerticalAlignment="Center" Click="Update_Click" Content="Check now" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource CardBorder}">
+                    <StackPanel>
+                        <TextBlock Text="IN THE GAME IT LOOKS LIKE THIS" Style="{StaticResource CardTitle}" />
+                        <Border CornerRadius="12" Height="160" ClipToBounds="True" Margin="0,0,0,14">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#5A9CD8" Offset="0" />
+                                    <GradientStop Color="#8CC2EC" Offset="0.55" />
+                                    <GradientStop Color="#4E8A3A" Offset="0.56" />
+                                    <GradientStop Color="#3C6E2C" Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <o:HudView x:Name="Preview" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="16,0,0,0" />
+                        </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="MoveBtn" Click="Move_Click">
+                                <StackPanel Orientation="Horizontal"><c:Icon Data="{StaticResource IconPin}" Width="16" Height="16" /><TextBlock x:Name="MoveText" Text="Move it on screen" Margin="8,0,0,0" /></StackPanel>
+                            </Button>
+                            <Button Margin="8,0,0,0" Click="ResetPos_Click" Content="Put it back" />
+                        </StackPanel>
+                        <Border Style="{StaticResource InsetBorder}" Margin="0,14,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <c:Icon Data="{StaticResource IconInfo}" Width="18" Height="18" Foreground="{StaticResource Accent}" VerticalAlignment="Top" />
+                                <TextBlock Grid.Column="1" Style="{StaticResource Body}" Margin="10,0,0,0" FontSize="12.5" TextWrapping="Wrap" x:Name="WindowModeHint" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Button x:Name="MoreBtn" Style="{StaticResource GhostBtn}" HorizontalAlignment="Center" Margin="0,16,0,0" Padding="16,8" Click="More_Click">
+                <TextBlock x:Name="MoreText" Text="More options  ▾" Foreground="{StaticResource Accent}" FontWeight="SemiBold" />
+            </Button>
+
+            <!-- ================= MORE OPTIONS ================= -->
+            <Grid x:Name="Advanced" Visibility="Collapsed" Margin="0,16,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="18" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <Border Style="{StaticResource CardBorder}">
+                        <StackPanel DataContext="{Binding Hud}">
+                            <TextBlock Text="ON-SCREEN BOX" Style="{StaticResource CardTitle}" />
+                            <TextBlock Text="SHOW IT" Style="{StaticResource Caps}" Margin="0,0,0,6" />
+                            <WrapPanel Margin="0,0,0,8">
+                                <RadioButton Style="{StaticResource Chip}" GroupName="HudVis" Content="When Fortnite is open" IsChecked="{Binding Visibility, Converter={StaticResource EnumEq}, ConverterParameter=FortniteFocused}" />
+                                <RadioButton Style="{StaticResource Chip}" GroupName="HudVis" Content="Only in a match" IsChecked="{Binding Visibility, Converter={StaticResource EnumEq}, ConverterParameter=InMatch}" />
+                                <RadioButton Style="{StaticResource Chip}" GroupName="HudVis" Content="Always" IsChecked="{Binding Visibility, Converter={StaticResource EnumEq}, ConverterParameter=Always}" />
+                            </WrapPanel>
+                            <TextBlock Text="STYLE" Style="{StaticResource Caps}" Margin="0,0,0,6" />
+                            <WrapPanel Margin="0,0,0,8">
+                                <RadioButton Style="{StaticResource Chip}" GroupName="HudLayout" Content="Card" IsChecked="{Binding Layout, Converter={StaticResource EnumEq}, ConverterParameter=Card}" />
+                                <RadioButton Style="{StaticResource Chip}" GroupName="HudLayout" Content="Bar" IsChecked="{Binding Layout, Converter={StaticResource EnumEq}, ConverterParameter=Compact}" />
+                                <RadioButton Style="{StaticResource Chip}" GroupName="HudLayout" Content="Tiny" IsChecked="{Binding Layout, Converter={StaticResource EnumEq}, ConverterParameter=Minimal}" />
+                            </WrapPanel>
+                            <TextBlock Text="NUMBERS" Style="{StaticResource Caps}" Margin="0,0,0,2" />
+                            <UniformGrid Columns="2">
+                                <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding ShowToday}" Content="Today" />
+                                <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding ShowAllTime}" Content="All time" />
+                                <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding ShowAverage}" Content="Per match" />
+                                <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding ShowPirate}" Content="Pirate odds" />
+                            </UniformGrid>
+                            <c:SliderRow Label="Size" Value="{Binding Scale}" Minimum="0.6" Maximum="2" Step="0.05" Percent="True" />
+                            <c:SliderRow Label="See-through" Value="{Binding Opacity}" Minimum="0.3" Maximum="1" Step="0.05" Percent="True" />
+                            <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding Animate}" Content="Pop animation for each chest" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Margin="0,18,0,0">
+                        <StackPanel>
+                            <TextBlock Text="COUNTING DURING THE MATCH" Style="{StaticResource CardTitle}" />
+                            <TextBlock Style="{StaticResource Body}" FontSize="12.5" TextWrapping="Wrap" Margin="0,0,0,8"
+                                       Text="When you press your chest key, LootLog reads the &quot;Search&quot; text around your crosshair. Fortnite shows the same word for chests and ammo boxes, so it looks at the colours (chests are gold) and learns from your replays. Chests you break with the pickaxe show no text - those are added after the match." />
+                            <c:SliderRow Label="Sound volume" Value="{Binding General.ChestSoundVolume}" Minimum="0.05" Maximum="1" Step="0.05" Percent="True" />
+                            <TextBlock x:Name="LearnText" Style="{StaticResource Muted}" FontSize="12" TextWrapping="Wrap" Margin="0,4,0,0" />
+                            <TextBlock x:Name="LastDetection" Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Margin="0,18,0,0">
+                        <StackPanel DataContext="{Binding Hotkeys}">
+                            <TextBlock Text="SHORTCUT KEYS" Style="{StaticResource CardTitle}" />
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Margin="0,0,0,8" TextWrapping="Wrap"
+                                       Text="Optional. They only work while Fortnite is the active window. Click a box and press a key (Backspace clears it)." />
+                            <Grid Margin="0,4"><TextBlock Text="Crosshair on / off" Foreground="{StaticResource Text}" VerticalAlignment="Center" /><c:KeyBindingBox HorizontalAlignment="Right" BindingValue="{Binding ToggleCrosshair}" /></Grid>
+                            <Grid Margin="0,4"><TextBlock Text="On-screen box on / off" Foreground="{StaticResource Text}" VerticalAlignment="Center" /><c:KeyBindingBox HorizontalAlignment="Right" BindingValue="{Binding ToggleHud}" /></Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <Border Style="{StaticResource CardBorder}">
+                        <StackPanel DataContext="{Binding General}">
+                            <TextBlock Text="APP" Style="{StaticResource CardTitle}" />
+                            <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding StartMinimized}" Content="Start hidden in the tray" />
+                            <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding CloseToTray}">
+                                <StackPanel>
+                                    <TextBlock Text="Closing the window keeps it running" />
+                                    <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="Counting keeps working in the background" />
+                                </StackPanel>
+                            </CheckBox>
+                            <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding ShowTrayTips}" Content="Show notifications" />
+                            <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding AutoUpdate}">
+                                <StackPanel>
+                                    <TextBlock Text="Install updates by itself" />
+                                    <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="Only when Fortnite is closed - never during a match" />
+                                </StackPanel>
+                            </CheckBox>
+                            <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding HideOverlaysFromCapture}">
+                                <StackPanel>
+                                    <TextBlock Text="Hide my overlays from recordings" />
+                                    <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="Turn off if you want viewers to see the chest box" />
+                                </StackPanel>
+                            </CheckBox>
+                            <c:SliderRow Label="A new day starts at" Value="{Binding DayStartHour}" Minimum="0" Maximum="12" Suffix=":00" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Margin="0,18,0,0">
+                        <StackPanel>
+                            <TextBlock Text="YOUR DATA" Style="{StaticResource CardTitle}" />
+                            <TextBlock Style="{StaticResource Body}" Margin="0,0,0,12" Text="Everything stays on this PC." />
+                            <WrapPanel>
+                                <Button Margin="0,0,8,8" Click="OpenData_Click">
+                                    <StackPanel Orientation="Horizontal"><c:Icon Data="{StaticResource IconFolder}" Width="16" Height="16" /><TextBlock Text="Open data folder" Margin="8,0,0,0" /></StackPanel>
+                                </Button>
+                                <Button Margin="0,0,8,8" Click="Import_Click">
+                                    <StackPanel Orientation="Horizontal"><c:Icon Data="{StaticResource IconRefresh}" Width="16" Height="16" /><TextBlock Text="Look for matches again" Margin="8,0,0,0" /></StackPanel>
+                                </Button>
+                                <Button Margin="0,0,8,8" Click="Welcome_Click" Content="Show the welcome again" />
+                                <Button Margin="0,0,8,8" Click="ClearHistory_Click" Style="{StaticResource DangerBtn}" Content="Clear match history" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Margin="0,18,0,0">
+                        <StackPanel>
+                            <TextBlock Text="SAFE BY DESIGN" Style="{StaticResource CardTitle}" />
+                            <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions><c:Icon Data="{StaticResource IconCheck}" Width="16" Height="16" Foreground="{StaticResource Green}" VerticalAlignment="Top" Margin="0,2,0,0" /><TextBlock Grid.Column="1" Style="{StaticResource Body}" Margin="10,0,0,0" TextWrapping="Wrap" Text="Never touches the game - it only reads the log and replay files Fortnite saves itself." /></Grid>
+                            <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions><c:Icon Data="{StaticResource IconCheck}" Width="16" Height="16" Foreground="{StaticResource Green}" VerticalAlignment="Top" Margin="0,2,0,0" /><TextBlock Grid.Column="1" Style="{StaticResource Body}" Margin="10,0,0,0" TextWrapping="Wrap" Text="Keys are only listened to - never blocked, changed or sent anywhere." /></Grid>
+                            <Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions><c:Icon Data="{StaticResource IconCheck}" Width="16" Height="16" Foreground="{StaticResource Green}" VerticalAlignment="Top" Margin="0,2,0,0" /><TextBlock Grid.Column="1" Style="{StaticResource Body}" Margin="10,0,0,0" TextWrapping="Wrap" Text="Text reading happens on your PC with Windows' own OCR. Nothing is uploaded." /></Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardBorder}" Margin="0,18,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="pack://application:,,,/Assets/AppIcon.png" Width="64" VerticalAlignment="Top" />
+                            <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                <TextBlock Text="LOOTLOG" Style="{StaticResource H2}" HorizontalAlignment="Left" />
+                                <TextBlock x:Name="VersionText" Style="{StaticResource Muted}" />
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Margin="0,8,0,0" TextWrapping="Wrap"
+                                           Text="Chest tracker for Fortnite. Island map: fortnite-api.com. Pirate token odds: Epic's published 1 in 137,500 per chest. Not affiliated with or endorsed by Epic Games. Fortnite is a trademark of Epic Games, Inc." />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

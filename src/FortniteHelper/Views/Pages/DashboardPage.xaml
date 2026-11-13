@@ -1,0 +1,264 @@
+<UserControl x:Class="FortniteHelper.Views.Pages.DashboardPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:FortniteHelper.Views.Controls">
+    <UserControl.Resources>
+        <Style x:Key="HeroChip" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Background" Value="#26FFFFFF" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="Margin" Value="0,0,10,10" />
+        </Style>
+        <Style x:Key="ChipLabel" TargetType="TextBlock" BasedOn="{StaticResource Caps}">
+            <Setter Property="Foreground" Value="#C8C0F0" />
+            <Setter Property="FontSize" Value="10.5" />
+        </Style>
+        <Style x:Key="ChipValue" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="{StaticResource Text}" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer Style="{StaticResource PageScroll}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="18" />
+                <ColumnDefinition Width="1*" MinWidth="330" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- ================= HERO: chests ================= -->
+            <Border CornerRadius="20" BorderThickness="1" BorderBrush="#33FFFFFF" ClipToBounds="True">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3B2A8C" Offset="0" />
+                        <GradientStop Color="#1B1F5A" Offset="0.55" />
+                        <GradientStop Color="#122A5C" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Ellipse Width="460" Height="460" HorizontalAlignment="Left" Margin="-120,-120,0,-120" IsHitTestVisible="False">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#66FFD23F" Offset="0" />
+                                <GradientStop Color="#22FF9A2E" Offset="0.45" />
+                                <GradientStop Color="#00FF9A2E" Offset="1" />
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Margin="26,22,28,22">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="190" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid x:Name="ChestArt" Width="175" Height="158" VerticalAlignment="Center">
+                            <Grid.RenderTransform>
+                                <TranslateTransform />
+                            </Grid.RenderTransform>
+                            <Image Source="{StaticResource ArtChest}" Stretch="Uniform" />
+                        </Grid>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="HeroLabel" Text="LAST MATCH" Style="{StaticResource Caps}" Foreground="#E0D8FF" FontSize="12.5" VerticalAlignment="Center" />
+                                <Border x:Name="ExactBadge" Margin="10,0,0,0" CornerRadius="6" Padding="7,2" Background="#2A5BE37D" VerticalAlignment="Center"
+                                        ToolTip="Counted from the match replay - every chest, even the ones you broke">
+                                    <StackPanel Orientation="Horizontal">
+                                        <c:Icon Data="{StaticResource IconCheck}" Width="12" Height="12" Foreground="{StaticResource Green}" />
+                                        <TextBlock Text="EXACT" Margin="4,0,0,0" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Green}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="LiveBadge" Margin="10,0,0,0" CornerRadius="6" Padding="7,2" Background="#262CE6FF" VerticalAlignment="Center"
+                                        ToolTip="Counted while you play. The exact number replaces it when you leave the match.">
+                                    <TextBlock Text="LIVE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Accent}" />
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                <StackPanel>
+                                    <c:AnimatedNumber x:Name="HeroNumber" FontFamily="{StaticResource DisplayFont}" FontSize="84" Margin="0,-8,0,-10" Foreground="{StaticResource GoldGradient}">
+                                        <c:AnimatedNumber.Effect>
+                                            <DropShadowEffect Color="#FF9A2E" BlurRadius="24" ShadowDepth="0" Opacity="0.55" />
+                                        </c:AnimatedNumber.Effect>
+                                    </c:AnimatedNumber>
+                                    <TextBlock Text="YOU" Style="{StaticResource Caps}" Foreground="#FFE9A0" FontSize="12" Margin="3,0,0,0" />
+                                </StackPanel>
+                                <StackPanel x:Name="TeamPanel" Margin="34,0,0,0">
+                                    <c:AnimatedNumber x:Name="TeamNumber" FontFamily="{StaticResource DisplayFont}" FontSize="84" Margin="0,-8,0,-10" Foreground="#9FE7FF">
+                                        <c:AnimatedNumber.Effect>
+                                            <DropShadowEffect Color="#2CE6FF" BlurRadius="22" ShadowDepth="0" Opacity="0.45" />
+                                        </c:AnimatedNumber.Effect>
+                                    </c:AnimatedNumber>
+                                    <TextBlock Text="YOUR TEAM" Style="{StaticResource Caps}" Foreground="#BDF3FF" FontSize="12" Margin="3,0,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBlock x:Name="HeroSub" Foreground="#E0D8FF" FontSize="13" Margin="2,8,0,12" TextWrapping="Wrap" />
+
+                            <WrapPanel>
+                                <Border Style="{StaticResource HeroChip}">
+                                    <StackPanel>
+                                        <TextBlock Text="TODAY" Style="{StaticResource ChipLabel}" />
+                                        <TextBlock x:Name="TodayText" Style="{StaticResource ChipValue}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource HeroChip}" ToolTip="Chests per match (CPM), your last 20 matches">
+                                    <StackPanel>
+                                        <TextBlock Text="PER MATCH" Style="{StaticResource ChipLabel}" />
+                                        <TextBlock x:Name="CpmText" Style="{StaticResource ChipValue}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource HeroChip}">
+                                    <StackPanel>
+                                        <TextBlock Text="ALL TIME" Style="{StaticResource ChipLabel}" />
+                                        <TextBlock x:Name="AllTimeText" Style="{StaticResource ChipValue}" />
+                                    </StackPanel>
+                                </Border>
+                            </WrapPanel>
+                            <StackPanel x:Name="FixPanel" Orientation="Horizontal" Margin="0,2,0,0">
+                                <Button Click="Remove_Click" ToolTip="The live counter saw one too many" Padding="10,6">
+                                    <c:Icon Data="{StaticResource IconMinus}" Width="14" Height="14" />
+                                </Button>
+                                <Button Click="Add_Click" Margin="8,0,0,0" ToolTip="The live counter missed one" Padding="10,6">
+                                    <c:Icon Data="{StaticResource IconPlus}" Width="14" Height="14" />
+                                </Button>
+                                <TextBlock Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="12,0,0,0" FontSize="12"
+                                           Text="Fix the live number (optional)" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- ================= PIRATE TOKEN ================= -->
+            <Border Grid.Column="2" CornerRadius="20" BorderThickness="1" BorderBrush="#40FFD23F" Padding="22,20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3A2A10" Offset="0" />
+                        <GradientStop Color="#1E1A3A" Offset="0.7" />
+                        <GradientStop Color="#161A45" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="PIRATE TOKEN" Style="{StaticResource Caps}" Foreground="#FFE9A0" FontSize="12" />
+                        <TextBlock x:Name="PirateDays" Style="{StaticResource Caps}" HorizontalAlignment="Right" FontSize="10" />
+                    </Grid>
+                    <TextBlock x:Name="PirateNumber" FontFamily="{StaticResource DisplayFont}" FontSize="58" Foreground="{StaticResource GoldGradient}" Margin="0,2,0,-6" />
+                    <TextBlock x:Name="PirateSub" Foreground="#FFE9A0" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,12" />
+
+                    <Border x:Name="TreasureBox" CornerRadius="10" Padding="12,8" Margin="0,0,0,12" Background="#22FFD23F" BorderBrush="#55FFD23F" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <c:Icon Data="{StaticResource IconSparkle}" Width="16" Height="16" Foreground="{StaticResource Yellow}" VerticalAlignment="Top" Margin="0,1,0,0" />
+                            <TextBlock x:Name="TreasureText" Grid.Column="1" Margin="8,0,0,0" Foreground="{StaticResource Text}" FontSize="12.5" TextWrapping="Wrap" />
+                        </Grid>
+                    </Border>
+
+                    <Grid x:Name="PirateSquadRow" Margin="0,0,0,6" ToolTip="When anyone in your team finds it, everyone gets access - so their chests count too">
+                        <TextBlock Text="With your team's chests" Foreground="{StaticResource TextDim}" />
+                        <TextBlock x:Name="PirateSquad" HorizontalAlignment="Right" FontWeight="Bold" Foreground="{StaticResource Text}" />
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock Text="At your pace by Dec 5" Foreground="{StaticResource TextDim}" />
+                        <TextBlock x:Name="PirateProjected" HorizontalAlignment="Right" FontWeight="Bold" Foreground="{StaticResource Yellow}" />
+                    </Grid>
+                    <TextBlock Style="{StaticResource Muted}" FontSize="10.5" Margin="0,8,0,0" TextWrapping="Wrap"
+                               Text="Epic's rate: 1 in 137,500 per chest (1.5× in Treasure Hours). Every chest is its own roll." />
+                </StackPanel>
+            </Border>
+
+            <!-- ================= LAST MATCH ================= -->
+            <Border Grid.Row="2" Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="YOUR LAST MATCH" Style="{StaticResource CardTitle}" />
+                        <Button x:Name="ReportBtn" Style="{StaticResource GhostBtn}" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Report_Click" Padding="10,4">
+                            <TextBlock Text="See the full match" Foreground="{StaticResource Accent}" />
+                        </Button>
+                    </Grid>
+                    <TextBlock x:Name="LastHeadline" Style="{StaticResource H2}" FontSize="20" HorizontalAlignment="Left" />
+                    <TextBlock x:Name="LastSub" Style="{StaticResource Muted}" Margin="0,2,0,14" TextWrapping="Wrap" />
+                    <ItemsControl x:Name="LastTips" ItemTemplate="{StaticResource TipTemplate}" />
+                    <TextBlock x:Name="NoMatches" Style="{StaticResource Muted}" TextWrapping="Wrap" FontSize="13.5"
+                               Text="Nothing yet - just play a match. When you're back in the lobby, your chests show up here." />
+                </StackPanel>
+            </Border>
+
+            <!-- ================= STATUS ================= -->
+            <Border Grid.Row="2" Grid.Column="2" Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse x:Name="StatusDot" Width="11" Height="11" Fill="{StaticResource TextMuted}" VerticalAlignment="Center" />
+                        <TextBlock x:Name="PhaseText" Style="{StaticResource H2}" FontSize="19" Margin="10,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <TextBlock x:Name="PhaseHint" Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="21,4,0,0" />
+
+                    <Border x:Name="AnalysisRow" Style="{StaticResource InsetBorder}" Margin="0,12,0,0" Padding="12,9">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Style="{StaticResource Spinner}" VerticalAlignment="Center">
+                                <ContentControl.LayoutTransform>
+                                    <ScaleTransform ScaleX="0.5" ScaleY="0.5" />
+                                </ContentControl.LayoutTransform>
+                            </ContentControl>
+                            <TextBlock x:Name="AnalysisText" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource Text}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="WarnBox" Margin="0,12,0,0" CornerRadius="12" Padding="12,10" Background="#26FF9A2E" BorderBrush="#66FF9A2E" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <c:Icon Data="{StaticResource IconInfo}" Width="18" Height="18" Foreground="{StaticResource Orange}" VerticalAlignment="Top" />
+                            <TextBlock x:Name="WarnText" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap" Foreground="{StaticResource Text}" FontSize="12.5" />
+                        </Grid>
+                    </Border>
+
+                    <Border Height="1" Background="#1AFFFFFF" Margin="0,14" />
+                    <CheckBox x:Name="HudToggle" Style="{StaticResource Switch}" Click="HudToggle_Click">
+                        <StackPanel>
+                            <TextBlock Text="Chest counter on screen" />
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="A small box in the game with your chests" />
+                        </StackPanel>
+                    </CheckBox>
+                    <CheckBox x:Name="CrosshairToggle" Style="{StaticResource Switch}" Click="CrosshairToggle_Click">
+                        <StackPanel>
+                            <TextBlock Text="Custom crosshair" />
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Text="Change it on the Crosshair page" />
+                        </StackPanel>
+                    </CheckBox>
+                </StackPanel>
+            </Border>
+
+            <!-- ================= CHESTS PER DAY ================= -->
+            <Border Grid.Row="4" Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="CHESTS PER DAY" Style="{StaticResource CardTitle}" />
+                        <TextBlock x:Name="WeekText" Style="{StaticResource Muted}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <c:BarChart x:Name="ChestChart" Height="150" />
+                </StackPanel>
+            </Border>
+
+            <!-- ================= COACH ================= -->
+            <Border Grid.Row="4" Grid.Column="2" Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <TextBlock Text="HOW TO GET MORE CHESTS" Style="{StaticResource CardTitle}" />
+                    <ItemsControl x:Name="CareerTips" ItemTemplate="{StaticResource TipTemplate}" />
+                    <TextBlock x:Name="NoCareerTips" Style="{StaticResource Muted}" TextWrapping="Wrap"
+                               Text="Play a few matches - tips about where you land, early fights and the storm show up here." />
+                    <Button Margin="0,10,0,0" HorizontalAlignment="Left" Click="Map_Click">
+                        <StackPanel Orientation="Horizontal"><c:Icon Data="{StaticResource IconMap}" Width="16" Height="16" /><TextBlock Text="Where are the chests?" Margin="8,0,0,0" /></StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
